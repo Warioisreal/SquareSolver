@@ -1,20 +1,20 @@
 #include <stdio.h>
-#include <assert.h>
 #include <math.h>
 
 #include "calculation.h"
-#include "Unit_tests.h"
-#include "Common.h"
+#include "unit_tests.h"
+#include "common.h"
 #include "comp.h"
-#include "Project_output.h"
-#include "Project_input.h"
+#include "project_output.h"
+#include "project_input.h"
 
 
 int main(int argc, char* argv[]) {
 
     NumberOfRoots n_roots = NumberOfRoots::UNKNOWN_NR;
-    double a = 0.0, b = 0.0, c = 0.0, x1 = 0.0, x2 = 0.0;
-    if ((argc > 1) && (strcmp(argv[1], "test") == 0)) {
+    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
+
+    if ((argc > 1) && (strcmp(argv[1], "--test") == 0)) {
         UnitTestCalcLin();
         UnitTestCalcQuad();
         UnitTestOutput();

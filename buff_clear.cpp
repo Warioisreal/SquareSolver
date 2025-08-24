@@ -5,11 +5,8 @@
 
 int Cleaner(void) {
 
-    int symbol = '\t';
-    symbol = getchar();
-
-    while (symbol != '\n') {
-        symbol = getchar();
+    while (getchar() != '\n') {
+        continue;
     }
     printf("Your input buffer is clean, Good Day!\n");
 

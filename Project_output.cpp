@@ -2,13 +2,10 @@
 #include <assert.h>
 #include <math.h>
 
-#include "Common.h"
+#include "common.h"
 
 
 int OutputRootsOrError(const NumberOfRoots Nroots, const double x1, const double x2) {
-
-    assert (isfinite(x1));
-    assert (isfinite(x2));
 
     switch (Nroots) {
         case NumberOfRoots::NOROOTS: printf("no real roots\n");

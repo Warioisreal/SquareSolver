@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <math.h>
 
-#include "Common.h"
+#include "common.h"
 #include "comp.h"
 #include "calculation.h"
 
@@ -15,9 +15,6 @@ NumberOfRoots SolveGeneralQuadraticEquation(const double a, const double b, cons
 
     assert (x1 != nullptr);
     assert (x2 != nullptr);
-
-    assert (isfinite (*x1));
-    assert (isfinite (*x2));
 
     NumberOfRoots result = NumberOfRoots::UNKNOWN_NR;
 
@@ -37,8 +34,6 @@ NumberOfRoots LinearCalculator(const double b, const double c, double* const x1)
     assert (isfinite (c));
 
     assert (x1 != nullptr);
-
-    assert (isfinite (*x1));
 
     if ((ComparisonNumb(b, 0.0) == ComparisonStatus::EQUAL)) {
         if (ComparisonNumb(c, 0.0) == ComparisonStatus::EQUAL) {
@@ -62,16 +57,13 @@ NumberOfRoots QuadraticCalculator(const double a, const double b, const double c
     assert (x1 != nullptr);
     assert (x2 != nullptr);
 
-    assert (isfinite (*x1));
-    assert (isfinite (*x2));
-
-    double d = 0.0;
+    double d = NAN;
     d = pow(b, 2) - 4 * a * c;
 
     switch (ComparisonNumb(d, 0.0)) {
         case ComparisonStatus::FIRST:
         {
-            double sqrtD = 0.0;
+            double sqrtD = NAN;
             sqrtD = sqrt(pow(b, 2) - 4 * a * c);
 
             *x1 = (-b - sqrtD) / (2 * a);

@@ -1,7 +1,8 @@
 #include <assert.h>
 #include <math.h>
+
 #include "comp.h"
-#include "Common.h"
+#include "common.h"
 
 
 ComparisonStatus ComparisonNumb(const double val1, const double val2) {
