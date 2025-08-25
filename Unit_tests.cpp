@@ -8,14 +8,21 @@
 #include "calculation.h"
 #include "comp.h"
 #include "common.h"
-#include "buff_clear.h"
+#include "special_term_commands.h"
 
 
-bool CalcCheck(struct tests_calc obj) {
+bool CalcCheck(const struct TestsCalc* obj) {
 
-    const NumberOfRoots ct_root = obj.nor;
-    const ComparisonStatus cmp1 = obj.cs1, cmp2 = obj.cs2;
-    const double res1 = obj.result1, res2 = obj.result2, a = obj.a_coef, b = obj.b_coef, c = obj.c_coef;
+    assert (obj != nullptr);
+
+    const NumberOfRoots ct_root     = (*obj).nor;
+    const ComparisonStatus cmp1     = (*obj).cs1;
+    const ComparisonStatus cmp2     = (*obj).cs2;
+    const double        res1        = (*obj).result1;
+    const double        res2        = (*obj).result2;
+    const double         a          = (*obj).a_coef;
+    const double         b          = (*obj).b_coef;
+    const double         c          = (*obj).c_coef;
 
     assert (isfinite(a));
     assert (isfinite(b));
@@ -44,41 +51,38 @@ bool CalcCheck(struct tests_calc obj) {
 }
 
 
-bool OutCheck(struct tests_out obj) {
+bool OutCheck(const struct TestsOut* obj) {
 
-    const char*         cmd     = obj.command;
-    const NumberOfRoots ct_root = obj.count_root;
-    const double        res1    = obj.result1, res2 = obj.result2;
+    assert (obj != nullptr);
+
+    const char*         cmd     = (*obj).command;
+    const NumberOfRoots ct_root = (*obj).count_root;
+    const double        res1    = (*obj).result1;
+    const double        res2    = (*obj).result2;
 
     assert (cmd != nullptr);
 
-    char ent = '\t';
+    char answer = '\t';
     printf("\nis output: %s ? | y - yes | n - no\n", cmd);
-    Separator();
+    PrintSeparator();
     OutputRootsOrError(ct_root, res1, res2);
-    Separator();
-    scanf("%c", &ent);
+    PrintSeparator();
+    scanf("%c", &answer);
 
-    Cleaner();
+    CleanInputBuffer();
 
-    return ent == 'y';
+    return answer == 'y';
 }
 
 
 int UnitTestCalcLin(void) {
-    struct tests_calc test_lin[] = {
-        {NumberOfRoots::ONEROOT, ComparisonStatus::EQUAL, ComparisonStatus::UNKNOWN_CS, 2, NAN, 0, 2, -4},
-        {NumberOfRoots::ONEROOT, ComparisonStatus::EQUAL, ComparisonStatus::UNKNOWN_CS, 4, NAN, 0, 1, -4,},
-        {NumberOfRoots::NOROOTS, ComparisonStatus::UNKNOWN_CS, ComparisonStatus::UNKNOWN_CS, NAN, NAN, 0, 0, 1},
-        {NumberOfRoots::INF_ROOTS, ComparisonStatus::UNKNOWN_CS, ComparisonStatus::UNKNOWN_CS, NAN, NAN, 0, 0, 0}
-    };
 
-    for (int i = 0; i < 4; i++) {
-        if (!CalcCheck(test_lin[i])) {
-            printf("%dL\n", i + 1);
+    for (size_t i = 0; i < TEST_LIN_SIZE; i++) {
+        if (!CalcCheck(&test_lin[i])) {
+            printf("%zuL\n", i + 1);
             break;
         }
-        if (i == 4) {
+        if (i + 1 == TEST_LIN_SIZE) {
             printf("\n>>CalcLin correct<<\n");
         }
     }
@@ -89,20 +93,12 @@ int UnitTestCalcLin(void) {
 
 int UnitTestCalcQuad(void) {
 
-    struct tests_calc test_quad[] = {
-        {NumberOfRoots::NOROOTS, ComparisonStatus::UNKNOWN_CS, ComparisonStatus::UNKNOWN_CS, NAN, NAN, 1, 2, 3},
-        {NumberOfRoots::ONEROOT, ComparisonStatus::EQUAL, ComparisonStatus::UNKNOWN_CS, -1, NAN, 1, 2, 1},
-        {NumberOfRoots::TWOROOTS, ComparisonStatus::EQUAL, ComparisonStatus::EQUAL, 2, 3, 1, -5, 6},
-        {NumberOfRoots::ONEROOT, ComparisonStatus::EQUAL, ComparisonStatus::UNKNOWN_CS, 0, NAN, 1, 0, 0},
-        {NumberOfRoots::TWOROOTS, ComparisonStatus::EQUAL, ComparisonStatus::EQUAL, -1, 0, 1, 1, 0}
-    };
-
-    for (int i = 0; i < 5; i++) {
-        if (!CalcCheck(test_quad[i])) {
-            printf("%dL\n", i + 1);
+    for (size_t i = 0; i < TEST_QUAD_SIZE; i++) { // sizeof
+        if (!CalcCheck(&test_quad[i])) {
+            printf("%zuL\n", i + 1);
             break;
         }
-        if (i == 5) {
+        if (i + 1 == TEST_QUAD_SIZE) {
             printf("\n>>CalcQuad correct<<\n");
         }
     }
@@ -113,20 +109,12 @@ int UnitTestCalcQuad(void) {
 
 int UnitTestOutput(void) {
 
-    struct tests_out test_output[] = {
-        {"[no real roots]", NumberOfRoots::NOROOTS, NAN, 0},
-        {"[root: 2]", NumberOfRoots::ONEROOT, 2.0, 0},
-        {"[\nroots:\nx1: 1 x2: 2\n]", NumberOfRoots::TWOROOTS, 1.0, 2.0},
-        {"[inf roots]", NumberOfRoots::INF_ROOTS, 0, 0},
-        {"[OUT default Nroots ERROR]", NumberOfRoots::UNKNOWN_NR, 0, 0}
-    };
-
-    for (int i = 0; i < 5; i++) {
-        if (!OutCheck(test_output[i])) {
-            printf("%dL\n", i + 1);
+    for (size_t i = 0; i < TEST_OUTPUT_SIZE; i++) {
+        if (!OutCheck(&test_output[i])) {
+            printf("%zuL\n", i + 1);
             break;
         }
-        if (i == 5) {
+        if (i + 1 == TEST_OUTPUT_SIZE) {
             printf("\n>>Output correct<<\n");
         }
     }

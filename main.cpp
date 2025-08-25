@@ -2,23 +2,23 @@
 #include <math.h>
 
 #include "calculation.h"
-#include "unit_tests.h"
 #include "common.h"
 #include "comp.h"
 #include "project_output.h"
 #include "project_input.h"
+#include "special_term_commands.h"
 
 
-int main(int argc, char* argv[]) {
+int main(const int argc, const char* argv[]) {
 
     NumberOfRoots n_roots = NumberOfRoots::UNKNOWN_NR;
-    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
+    double        a       = NAN;
+    double        b       = NAN;
+    double        c       = NAN;
+    double        x1      = NAN;
+    double        x2      = NAN;
 
-    if ((argc > 1) && (strcmp(argv[1], "--test") == 0)) {
-        UnitTestCalcLin();
-        UnitTestCalcQuad();
-        UnitTestOutput();
-    }
+    Parse_Exec(argc, argv);
 
     InputCoefficients(&a, &b, &c);
 

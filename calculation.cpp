@@ -57,8 +57,11 @@ NumberOfRoots QuadraticCalculator(const double a, const double b, const double c
     assert (x1 != nullptr);
     assert (x2 != nullptr);
 
-    double d = NAN;
+    double      d       = NAN;
+    double doubled_a    = NAN;
+
     d = pow(b, 2) - 4 * a * c;
+    doubled_a = 2 * a;
 
     switch (ComparisonNumb(d, 0.0)) {
         case ComparisonStatus::FIRST:
@@ -66,12 +69,12 @@ NumberOfRoots QuadraticCalculator(const double a, const double b, const double c
             double sqrtD = NAN;
             sqrtD = sqrt(pow(b, 2) - 4 * a * c);
 
-            *x1 = (-b - sqrtD) / (2 * a);
-            *x2 = (-b + sqrtD) / (2 * a);
+            *x1 = (-b - sqrtD) / doubled_a;
+            *x2 = (-b + sqrtD) / doubled_a;
             return NumberOfRoots::TWOROOTS;
         }
         case ComparisonStatus::EQUAL:
-            *x1 = -b / (2 * a);
+            *x1 = -b / doubled_a;
             return NumberOfRoots::ONEROOT;
         case ComparisonStatus::SECOND:
             return NumberOfRoots::NOROOTS;

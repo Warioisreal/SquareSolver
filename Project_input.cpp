@@ -3,7 +3,7 @@
 #include <math.h>
 
 #include "common.h"
-#include "buff_clear.h"
+#include "special_term_commands.h"
 
 
 int InputCoefficients(double* a, double* b, double* c) {
@@ -12,20 +12,20 @@ int InputCoefficients(double* a, double* b, double* c) {
     assert (b != nullptr);
     assert (c != nullptr);
 
-    int ct = 0;
+    int coef_count = 0;
 
     printf("\nenter equation coefficients: a [space] b [space] c [ax^2 + bx + c = 0]\n");
 
-    while (ct != COEFFICIENTS_COUNT) {
-        ct = scanf("%lg %lg %lg", a, b, c);
+    while (coef_count != COEFFICIENTS_COUNT) {
+        coef_count = scanf("%lg %lg %lg", a, b, c);
 
-        if ((ct == COEFFICIENTS_COUNT) && (getchar() == '\n')) {
+        if ((coef_count == COEFFICIENTS_COUNT) && (getchar() == '\n')) {
             printf("\ndata correct\n\n\\result/\n");
         } else {
-            Cleaner();
+            CleanInputBuffer();
             printf("\ndata incorrect, try enter data again\n"
-                    "\nenter equation coefficients: a [space] b [space] c [ax^2 + bx + c = 0]\n");
-            ct = 0;
+                   "\nenter equation coefficients: a [space] b [space] c [ax^2 + bx + c = 0]\n");
+            coef_count = 0;
         }
     }
 
