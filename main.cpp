@@ -17,14 +17,17 @@ int main(const int argc, const char* argv[]) {
     double        c       = NAN;
     double        x1      = NAN;
     double        x2      = NAN;
+    ExecMode input_mode   = ExecMode::NORMAL;
 
-    Parse_Exec(argc, argv);
+    Parse_Exec(argc, argv, &input_mode);
 
-    InputCoefficients(&a, &b, &c);
+    InputCoefficients(&a, &b, &c, input_mode);
 
-    n_roots = SolveGeneralQuadraticEquation(a, b, c, &x1, &x2);
+    struct Coef_Roots obj_cr {a, b, c, &x1, &x2};
 
-    OutputRootsOrError(n_roots, x1, x2);
+    n_roots = SolveGeneralQuadraticEquation(&obj_cr);
+
+    OutputRootsOrError(n_roots, *obj_cr.root1, *obj_cr.root2);
 
     return 0;
 }

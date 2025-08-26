@@ -36,9 +36,9 @@ const size_t TEST_QUAD_SIZE   = sizeof(test_quad)   / sizeof(test_quad[0]);
 const size_t TEST_OUTPUT_SIZE = sizeof(test_output) / sizeof(test_output[0]);
 
 
-int UnitTestCalcLin(void);
-int UnitTestCalcQuad(void);
-int UnitTestOutput(void);
+void UnitTestCalcLin(void);
+void UnitTestCalcQuad(void);
+void UnitTestOutput(void);
 bool CalcCheck(struct tests_calc* obj);
 bool OutCheck(struct tests_out* obj);
 

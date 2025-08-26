@@ -1,10 +1,11 @@
-#ifndef _ENUMNOR_H_
-#define _ENUMNOR_H_
+#ifndef _COMMON_H_
+#define _COMMON_H_
 
 #include <math.h>
+
+#include "handle_string.h"
 #include "comp.h"
 
-#define MAX_LEN_STRING 128 // handle string
 
 const double EPSILON = 1e-8; // handle math
 const int COEFFICIENTS_COUNT = 3; // handle math
@@ -35,4 +36,4 @@ struct TestsOut { //  handle tests или попробовать закинут�
     double      result2          = NAN;
 };
 
-#endif // _ENUMNOR_H_
+#endif // _COMMON_H_

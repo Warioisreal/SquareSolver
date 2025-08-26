@@ -5,7 +5,7 @@
 #include "common.h"
 
 
-int OutputRootsOrError(const NumberOfRoots Nroots, const double x1, const double x2) {
+void OutputRootsOrError(const NumberOfRoots Nroots, const double x1, const double x2) {
 
     switch (Nroots) {
         case NumberOfRoots::NOROOTS:    printf("no real roots\n");
@@ -20,6 +20,4 @@ int OutputRootsOrError(const NumberOfRoots Nroots, const double x1, const double
             break;
         default: printf("OUT switch ERROR\n");
     }
-
-    return 0;
 }

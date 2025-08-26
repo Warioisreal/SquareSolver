@@ -7,28 +7,40 @@
 #include "calculation.h"
 
 
-NumberOfRoots SolveGeneralQuadraticEquation(const double a, const double b, const double c, double* const x1, double* const x2) {
+NumberOfRoots SolveGeneralQuadraticEquation(struct Coef_Roots* obj) {
 
-    assert (isfinite (a));
-    assert (isfinite (b));
-    assert (isfinite (c));
+    const Coef_Roots obj_cr {
+        (*obj).a_coef,
+        (*obj).b_coef,
+        (*obj).c_coef,
+        (*obj).root1,
+        (*obj).root2
+    };
 
-    assert (x1 != nullptr);
-    assert (x2 != nullptr);
+    assert (isfinite (obj_cr.a_coef));
+    assert (isfinite (obj_cr.b_coef));
+    assert (isfinite (obj_cr.c_coef));
+
+    assert (obj_cr.root1 != nullptr);
+    assert (obj_cr.root2 != nullptr);
 
     NumberOfRoots result = NumberOfRoots::UNKNOWN_NR;
 
     if (ComparisonNumb(a, 0.0) == ComparisonStatus::EQUAL) {
-        result = LinearCalculator(b, c, x1);
+        result = LinearCalculator(&obj_cr);
     } else {
-        result = QuadraticCalculator(a, b, c, x1, x2);
+        result = QuadraticCalculator(&obj_cr);
     }
 
     return result;
 }
 
 
-NumberOfRoots LinearCalculator(const double b, const double c, double* const x1) {
+NumberOfRoots LinearCalculator(struct Coef_Roots* obj) {
+
+    const double b = (*obj).b_coef;
+    const double c = (*obj).c_coef;
+    double* const x1 = (*obj).root1;
 
     assert (isfinite (b));
     assert (isfinite (c));
@@ -48,7 +60,13 @@ NumberOfRoots LinearCalculator(const double b, const double c, double* const x1)
 }
 
 
-NumberOfRoots QuadraticCalculator(const double a, const double b, const double c, double* const x1, double* const x2) {
+NumberOfRoots QuadraticCalculator(struct Coef_Roots* obj) {
+
+    const double a = (*obj).a_coef;
+    const double b = (*obj).b_coef;
+    const double c = (*obj).c_coef;
+    double* const x1 = (*obj).root1;
+    double* const x2 = (*obj).root2;
 
     assert (isfinite (a));
     assert (isfinite (b));

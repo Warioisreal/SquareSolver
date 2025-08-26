@@ -12,26 +12,28 @@ enum class ExecMode : char {
 };
 
 struct ExecToMode {
-    char exec_mode_long[MAX_LEN_STRING] = "";
+    char exec_mode_long[MAX_LEN_STRING]  = "";
     char exec_mode_short[MAX_LEN_STRING] = "";
-    char description[MAX_LEN_STRING] = "";
+    char description[MAX_LEN_STRING]     = "";
 };
 
 const struct ExecToMode list_mode[] = {
-    {"--test",   "-t", "--test  ->  [run functions tests and print results\n"},
-    {"--help",   "-h", "--help  ->  [print all available operating mode]\n"},
-    {"--file",   "-f", "--file  ->  [input data from file]\n"},
-    {"",         "",   "        ->  [run base mode]\n"}
+    {"--test",   "-t", "--test OR -t  ->  [run functions tests and print results\n"},
+    {"--help",   "-h", "--help OR -h  ->  [print all available operating mode]\n"},
+    {"--file",   "-f", "--file OR -f  ->  [input data from file]\n"},
+    {      "",     "", "              ->  [run base mode]\n"}
 };
 
 const size_t LIST_MODE_SIZE = sizeof(list_mode) / sizeof(list_mode[0]);
 
-int CleanInputBuffer(void);
+void CleanInputBuffer(void);
 
-int PrintSeparator(void);
+bool CheckBuffer(void);
 
-int Parse_Exec(const int exec_size, const char* exec_data[]);
+void PrintSeparator(void);
 
-int RunExecMode(ExecMode mode);
+void Parse_Exec(const int exec_size, const char* exec_data[], ExecMode* input_mode);
+
+void RunExecMode(ExecMode mode);
 
 #endif // _SPECIAL_TERM_COMMANDS_H_

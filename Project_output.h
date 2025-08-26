@@ -4,6 +4,6 @@
 #include "common.h"
 
 
-int OutputRootsOrError(const NumberOfRoots n_roots, const double x1, const double x2);
+void OutputRootsOrError(const NumberOfRoots n_roots, const double x1, const double x2);
 
 #endif // _PROJECT_OUTPUT_H_
