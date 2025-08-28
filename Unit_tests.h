@@ -3,9 +3,28 @@
 
 #include <string.h>
 
-#include "common.h"
 #include "comp.h"
+#include "handle_math.h"
+#include "handle_string.h"
 
+
+struct TestsCalc {
+    NumberOfRoots    nor = NumberOfRoots::UNKNOWN_NR;
+    ComparisonStatus cs1 = ComparisonStatus::UNKNOWN_CS;
+    ComparisonStatus cs2 = ComparisonStatus::UNKNOWN_CS;
+    double   result1     = NAN;
+    double   result2     = NAN;
+    double    a_coef     = NAN;
+    double    b_coef     = NAN;
+    double    c_coef     = NAN;
+};
+
+struct TestsOut {
+    char command[MAX_LEN_STRING] = "";
+    NumberOfRoots count_root     = NumberOfRoots::UNKNOWN_NR;
+    double      result1          = NAN;
+    double      result2          = NAN;
+};
 
 const struct TestsCalc test_lin[] = {
     {NumberOfRoots::ONEROOT,    ComparisonStatus::EQUAL,        ComparisonStatus::UNKNOWN_CS,   2,    NAN,  0,  2,  -4},
@@ -30,16 +49,15 @@ const struct TestsOut test_output[] = {
     {"[OUT default Nroots ERROR]",  NumberOfRoots::UNKNOWN_NR,  NAN,    NAN}
 };
 
-
 const size_t TEST_LIN_SIZE    = sizeof(test_lin)    / sizeof(test_lin[0]);
 const size_t TEST_QUAD_SIZE   = sizeof(test_quad)   / sizeof(test_quad[0]);
 const size_t TEST_OUTPUT_SIZE = sizeof(test_output) / sizeof(test_output[0]);
 
 
-void UnitTestCalcLin(void);
-void UnitTestCalcQuad(void);
-void UnitTestOutput(void);
 bool CalcCheck(struct tests_calc* obj);
 bool OutCheck(struct tests_out* obj);
+bool UnitTestCalcLin(void);
+bool UnitTestCalcQuad(void);
+bool UnitTestOutput(void);
 
 #endif // _UNIT_TESTS_H_

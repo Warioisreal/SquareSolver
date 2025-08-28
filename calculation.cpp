@@ -1,51 +1,33 @@
 #include <stdio.h>
 #include <assert.h>
-#include <math.h>
 
-#include "common.h"
-#include "comp.h"
 #include "calculation.h"
+#include "comp.h"
 
 
-NumberOfRoots SolveGeneralQuadraticEquation(struct Coef_Roots* obj) {
+NumberOfRoots SolveGeneralQuadraticEquation(struct Equation* obj) {
 
-    const Coef_Roots obj_cr {
-        (*obj).a_coef,
-        (*obj).b_coef,
-        (*obj).c_coef,
-        (*obj).root1,
-        (*obj).root2
-    };
-
-    assert (isfinite (obj_cr.a_coef));
-    assert (isfinite (obj_cr.b_coef));
-    assert (isfinite (obj_cr.c_coef));
-
-    assert (obj_cr.root1 != nullptr);
-    assert (obj_cr.root2 != nullptr);
+    assert (obj != nullptr);
 
     NumberOfRoots result = NumberOfRoots::UNKNOWN_NR;
 
-    if (ComparisonNumb(a, 0.0) == ComparisonStatus::EQUAL) {
-        result = LinearCalculator(&obj_cr);
+    if (ComparisonNumb((*obj).a_coef, 0.0) == ComparisonStatus::EQUAL) {
+        result = LinearCalculator(obj);
     } else {
-        result = QuadraticCalculator(&obj_cr);
+        result = QuadraticCalculator(obj);
     }
 
     return result;
 }
 
 
-NumberOfRoots LinearCalculator(struct Coef_Roots* obj) {
+NumberOfRoots LinearCalculator(struct Equation* obj) {
+
+    assert (obj != nullptr);
 
     const double b = (*obj).b_coef;
     const double c = (*obj).c_coef;
-    double* const x1 = (*obj).root1;
-
-    assert (isfinite (b));
-    assert (isfinite (c));
-
-    assert (x1 != nullptr);
+    double* const x1 = &(*obj).x1;
 
     if ((ComparisonNumb(b, 0.0) == ComparisonStatus::EQUAL)) {
         if (ComparisonNumb(c, 0.0) == ComparisonStatus::EQUAL) {
@@ -60,20 +42,15 @@ NumberOfRoots LinearCalculator(struct Coef_Roots* obj) {
 }
 
 
-NumberOfRoots QuadraticCalculator(struct Coef_Roots* obj) {
+NumberOfRoots QuadraticCalculator(struct Equation* obj) {
+
+    assert (obj != nullptr);
 
     const double a = (*obj).a_coef;
     const double b = (*obj).b_coef;
     const double c = (*obj).c_coef;
-    double* const x1 = (*obj).root1;
-    double* const x2 = (*obj).root2;
-
-    assert (isfinite (a));
-    assert (isfinite (b));
-    assert (isfinite (c));
-
-    assert (x1 != nullptr);
-    assert (x2 != nullptr);
+    double* const x1 = &(*obj).x1;
+    double* const x2 = &(*obj).x2;
 
     double      d       = NAN;
     double doubled_a    = NAN;

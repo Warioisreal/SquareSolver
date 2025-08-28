@@ -3,6 +3,10 @@
 
 #define MAX_LEN_STRING 128
 
-int CalcNumberCharInString(const char symbol, const char string[MAX_LEN_STRING]);
+static const char* DEFAULT_FILENAME_INPUT  = "input.txt";
+static const char* DEFAULT_FILENAME_OUTPUT = "output.txt";
+
+size_t CalcNumberCharInString(const char symbol, const char* string);
+void FileName(char* filename, const char* mode);
 
 #endif // _HANDLE_STRING_H_

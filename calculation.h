@@ -1,18 +1,31 @@
+/*!
+\file
+\brief Заголовочный файл с описанием вычислительных функций и структур
+Данный файл содержит в себе определения вычислительных функций программы и
+структуры с коэффициентами и адресами на корни уравнения
+*/
 #ifndef _CALCULATIONS_H_
 #define _CALCULATIONS_H_
 
-#include "common.h"
+#include "handle_math.h"
 
-struct Coef_Roots {
-    const double a_coef = 0.0;
-    const double b_coef = 0.0;
-    const double c_coef = 0.0;
-    double* const root1 = nullptr;
-    double* const root2 = nullptr;
-};
-
-NumberOfRoots SolveGeneralQuadraticEquation(struct Coef_Roots* obj);
-NumberOfRoots LinearCalculator(struct Coef_Roots* obj);
-NumberOfRoots QuadraticCalculator(struct Coef_Roots* obj);
+/*!
+Обрабатывает переданные коэффициенты и адреса на корни и запускает соответствующую функцию вычисления
+\param obj Структура, содержащая коэффициенты и адреса на корни
+\return Количество вычисленных корней, полученное из вычислительной функции
+*/
+NumberOfRoots SolveGeneralQuadraticEquation(struct Equation* obj);
+/*!
+Обрабатывает переданные коэффициенты и адреса и вычисляет по линейному алгоритму корень
+\param obj Структура, содержащая коэффициенты и адреса на корни
+\return Количество вычисленных корней; Если корень вычислен, то записывает значение по полученному адресу
+*/
+NumberOfRoots LinearCalculator(struct Equation* obj);
+/*!
+Обрабатывает переданные коэффициенты и адреса и вычисляет по квадратичному алгоритму корень
+\param obj Структура, содержащая коэффициенты и адреса на корни
+\return Количество вычисленных корней; Если корень(ни) вычислен(ы), то записывает значение(я) по полученному(ым) адресу(ам)
+*/
+NumberOfRoots QuadraticCalculator(struct Equation* obj);
 
 #endif // _CALCULATIONS_H_

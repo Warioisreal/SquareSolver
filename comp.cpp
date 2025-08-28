@@ -2,7 +2,7 @@
 #include <math.h>
 
 #include "comp.h"
-#include "common.h"
+#include "handle_math.h"
 
 
 ComparisonStatus ComparisonNumb(const double val1, const double val2) {
